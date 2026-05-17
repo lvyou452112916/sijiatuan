@@ -2,8 +2,8 @@ name: Daily Guizhou Blog
 
 on:
   schedule:
-    # Beijing 07:00 is UTC 23:00 on the previous day.
-    - cron: "0 23 * * *"
+    # Every Monday 07:00 Beijing time is Sunday 23:00 UTC.
+    - cron: "0 23 * * 0"
   workflow_dispatch:
 
 permissions:
@@ -26,8 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate daily blog article
+      - name: Generate weekly blog article
         run: node scripts/generate-daily-blog.mjs
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
 
       - name: Build site
         run: npm run build
