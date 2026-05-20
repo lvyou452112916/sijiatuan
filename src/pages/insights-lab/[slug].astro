@@ -14,9 +14,10 @@ export const getStaticPaths = (async () => {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const data = post.data;
+const publicDescription = `围绕“${data.keyword || data.title}”整理的贵州旅行社选择、私家团服务和定制游安排参考。`;
 ---
 
-<MainLayout title={`${data.title} - 旅行社推荐`} description={data.description}>
+<MainLayout title={`${data.title} - 旅行社推荐`} description={publicDescription}>
   <section class="relative bg-orange-50 pt-32 pb-16">
     <div class="mx-auto max-w-4xl px-4">
       <a href="/insights-lab" class="text-sm font-semibold text-orange-600 hover:underline">

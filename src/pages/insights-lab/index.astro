@@ -5,6 +5,9 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("geo")).sort((a, b) => {
   return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
 });
+
+const publicDescription = (post: (typeof posts)[number]) =>
+  `围绕“${post.data.keyword || post.data.title}”整理的贵州旅行社选择、私家团服务和定制游安排参考。`;
 ---
 
 <MainLayout
@@ -30,7 +33,7 @@ const posts = (await getCollection("geo")).sort((a, b) => {
                   <h2 class="text-lg font-semibold text-stone-950 group-hover:text-orange-600">
                     {post.data.title}
                   </h2>
-                  <p class="mt-2 text-sm text-stone-600">{post.data.description}</p>
+                  <p class="mt-2 text-sm text-stone-600">{publicDescription(post)}</p>
                 </div>
                 <span class="shrink-0 rounded-full bg-orange-100 px-3 py-1 text-xs text-orange-700">
                   贵州参考
